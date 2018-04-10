@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Email Validation</title>
+</head>
+<body>
+    {% with messages = get_flashed_messages() %}
+        {% if messages %}
+            {% for message in messages %}
+                <h3>{{message}}</h3>
+            {% endfor %}
+        {% endif %}
+    {% endwith %}
+    <h2>Do you have an account? Log in here</h2> 
+    <form action="/login" method="POST">
+        Email: <input type="text" name="email">
+        <br>
+        Password: <input type="password" name='password'>
+        <br>
+        <input type="submit" value="Submit">
+    </form>
+    <h2>If you don't already have an account you can register here!</h2>
+    <form action="/register" method="POST">
+        First name: <input type="text" name="f_name">
+        <br>
+        Last name: <input type="text" name="l_name">
+        <br>
+        Email: <input type="text" name="email">
+        <br>
+        Password: <input type="password" name="password">
+        <br>
+        Confrim Password: <input type="password" name="c_password">
+        <br>
+        <input type="submit" value="Submit">
+    </form>
+</body>
+</html>
