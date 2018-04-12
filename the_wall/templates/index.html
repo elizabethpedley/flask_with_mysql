@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>The Wall</title>
+</head>
+<body>
+    <header>
+        <h1>Coding Dojo Wall</h1>
+        <p>Welcome {{user.first_name}}</p>
+        <a href="/logoff">Log Off</a>
+    </header>
+    {% with messages = get_flashed_messages() %}
+        {% if messages %}
+            {% for message in messages %}
+                <h3>{{message}}</h3>
+            {% endfor %}
+        {% endif %}
+    {% endwith %}
+    <h2>Post a message:</h2>
+    <form action="/add/{{user.id}}" method='POST'>
+        <textarea name="message"></textarea>
+        <input type="submit" value='Post A Message'>
+    </form>
+    {% if messages %}
+        {% for message in messages%}
+            <h3>{{message.name}} <span>{{message.time}}</span></h3>
+            <p>{{message.message}}</p>
+            {% if comments%}
+                {% for comment in comments%}
+                    {% if comment.message_id == message.message_id %}
+                        <h3>{{comment.name}}  {{comment.time}}</h3>
+                        <p>{{comment.comment}}</p>
+                    {% endif %}
+                {% endfor%}
+            {% endif %}
+            <form action="add/{{user.id}}/{{message.message_id}}" method='POST'>
+                <textarea name="message"></textarea>
+                <input type="submit" value='Post A Comment'>
+            </form>
+        {% endfor %}
+    {% endif %}
+</body>
+</html>
